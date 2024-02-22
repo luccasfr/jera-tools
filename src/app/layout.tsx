@@ -27,9 +27,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="flex h-full pt-20 ">
+          <div className="flex h-full pt-20">
             <Sidebar />
-            <div className="flex-1 p-4">{children}</div>
+            <div className="flex-1 px-4">{children}</div>
           </div>
         </ThemeProvider>
       </body>

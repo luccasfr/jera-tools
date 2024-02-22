@@ -1,3 +1,4 @@
+import PageTitle from '@/components/page-title'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -13,7 +14,7 @@ type Props = {}
 export default function generateHash({}: Props) {
   return (
     <div className="space-y-4">
-      <h1 className="font-mono text-2xl lowercase">Generate Hash</h1>
+      <PageTitle>generate hash</PageTitle>
       <Select name="hash">
         <SelectTrigger className="w-full">
           <SelectValue placeholder="select one hash" />

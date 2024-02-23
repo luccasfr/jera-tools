@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  client:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '9005:3000'

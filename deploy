@@ -1,0 +1,15 @@
+#!/bin/bash
+logo="Jera WA"
+
+logo_figlet=$(docker run --rm mwendler/figlet $logo)
+
+echo "$logo_figlet"
+
+printf "Atualizando o projeto\n\n"
+git fetch && git pull
+
+printf "\nCompilando o projeto\n\n"
+docker compose build
+
+printf "\nSubindo o projeto\n\n"
+docker compose up -d

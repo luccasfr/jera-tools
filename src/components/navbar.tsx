@@ -7,9 +7,9 @@ type Props = {}
 export default function Navbar({}: Props) {
   return (
     <div
-      className="border-b-primary-foreground bg-background fixed 
-                 top-0 z-50 flex w-full justify-between
-                 border-b-[1px] bg-opacity-10 p-4 backdrop-blur"
+      className="fixed top-0 z-50 
+                 flex w-full justify-between border-b-[1px] border-b-border
+                 bg-background bg-opacity-10 px-2 py-4 backdrop-blur"
     >
       <div className="my-auto">
         <div className="inline-flex gap-1 text-xl font-semibold">
@@ -18,9 +18,6 @@ export default function Navbar({}: Props) {
         </div>
       </div>
       <div className="flex items-center">
-        {/* <div className="px-4">Home</div>
-        <div className="px-4">About</div>
-        <div className="px-4">Contact</div> */}
         <ModeToggle />
       </div>
     </div>

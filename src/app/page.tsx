@@ -1,9 +1,9 @@
-import PageTitle from '@/components/page-title'
+import Title from '@/components/title'
 
 export default function Home() {
   return (
     <main>
-      <PageTitle>Welcome to Jera Tools</PageTitle>
+      <Title>Welcome to Jera Tools</Title>
     </main>
   )
 }

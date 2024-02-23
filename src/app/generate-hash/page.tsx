@@ -1,5 +1,15 @@
-import PageTitle from '@/components/page-title'
+'use client'
+import ResultDisplay from '@/components/result-display'
+import Title from '@/components/title'
 import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -8,25 +18,89 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import generate from '@/services/generate-hash'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Fragment, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-type Props = {}
+const generateHashSchema = z.object({
+  hash: z.enum(['sha1', 'sha256', 'sha512'], {
+    required_error: 'you must select a hash',
+  }),
+  seed: z
+    .string({
+      required_error: 'you must type a seed',
+    })
+    .min(5, {
+      message: 'seed must be at least 5 character long',
+    }),
+})
 
-export default function generateHash({}: Props) {
+export type GenerateHashType = z.infer<typeof generateHashSchema>
+
+export default function GenerateHashPage() {
+  const [hash, setHash] = useState<string>('')
+  const form = useForm<GenerateHashType>({
+    resolver: zodResolver(generateHashSchema),
+  })
+
+  const onSubmit = async (data: GenerateHashType) => {
+    const hash = await generate(data.hash, data.seed)
+    setHash(hash)
+  }
+
   return (
     <div className="space-y-4">
-      <PageTitle>generate hash</PageTitle>
-      <Select name="hash">
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="select one hash" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="sha1">sha1</SelectItem>
-          <SelectItem value="sha256">sha256</SelectItem>
-          <SelectItem value="sha512">sha512</SelectItem>
-        </SelectContent>
-      </Select>
-      <Input placeholder="type your phrase" />
-      <Button className="float-right font-bold">generate</Button>
+      <Title>generate hash</Title>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full space-y-4"
+        >
+          <FormField
+            control={form.control}
+            name="hash"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>hash</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="select a hash" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="sha1">SHA1</SelectItem>
+                    <SelectItem value="sha256">SHA256</SelectItem>
+                    <SelectItem value="sha512">SHA512</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="seed"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>seed</FormLabel>
+                <Input placeholder="type your seed" {...field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">generate</Button>
+        </form>
+      </Form>
+
+      {hash && (
+        <ResultDisplay contentName="hash" variant="mono" content={hash} />
+      )}
     </div>
   )
 }

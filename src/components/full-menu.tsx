@@ -14,11 +14,11 @@ export default function FullMenu({ open, onClose }: FullMenuProps) {
   }
   return (
     <div
-      className={`fixed left-1/2 z-40 h-full w-full -translate-x-1/2 bg-background transition-transform duration-300 ${!open ? '-translate-y-full' : 'translate-y-[80px]'}`}
+      className={`fixed left-1/2 z-40 block h-full w-full -translate-x-1/2 bg-background transition-transform md:hidden ${!open ? '-translate-y-full duration-500' : 'translate-y-[80px] duration-300'}`}
       style={{ maxHeight: 'calc(100vh - 80px)' }}
       onClick={handleClose}
     >
-      <Menubar />
+      <Menubar className="flex" />
     </div>
   )
 }

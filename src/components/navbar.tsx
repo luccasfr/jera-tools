@@ -11,7 +11,6 @@ export default function Navbar({}: Props) {
   const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
-    console.log('handleOpen')
     setOpen(!open)
   }
 
@@ -31,7 +30,7 @@ export default function Navbar({}: Props) {
         </div>
         <div className="flex items-center gap-2">
           <ModeToggle />
-          <MenuToggle className="flex md:hidden" onClick={handleOpen} />
+          <MenuToggle open={open} onClick={handleOpen} />
         </div>
       </div>
     </>

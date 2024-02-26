@@ -41,7 +41,7 @@ export default function GenerateGuidPage({}: Props) {
       >
         <Button
           variant="outline"
-          className="absolute right-8 top-1 h-6 w-6"
+          className="absolute right-9 top-1/2 h-6 w-6 -translate-y-1/2"
           size="icon"
           onClick={handleGuidGenerate}
         >
@@ -49,7 +49,7 @@ export default function GenerateGuidPage({}: Props) {
         </Button>
         <Button
           variant="outline"
-          className="absolute right-1 top-1 h-6 w-6"
+          className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2"
           size="icon"
           onClick={handleCopy}
         >

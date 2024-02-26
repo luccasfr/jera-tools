@@ -13,7 +13,7 @@ type ResultDisplayProps = {
 }
 
 const resultDisplayVariants = cva(
-  'relative break-words rounded border-[1px] border-input py-2 pl-3 pr-8',
+  'relative break-words rounded border-[1px] border-input py-2 pl-3 pr-8 md:text-sm',
   {
     variants: {
       variant: {
@@ -33,7 +33,13 @@ export default function ResultDisplay({
   variant,
   className,
 }: ResultDisplayProps) {
-  const copyToClipboard = () => {
+  const handleCopy = () => {
+    if (!navigator.clipboard) {
+      toast.error('clipboard not available', {
+        description: 'Your browser does not support clipboard access',
+      })
+      return
+    }
     navigator.clipboard.writeText(content)
     toast.info('copied to clipboard', {
       description: `The ${contentName} has been copied to your clipboard`,
@@ -48,7 +54,7 @@ export default function ResultDisplay({
           variant="outline"
           className="absolute right-1 top-1 h-6 w-6"
           size="icon"
-          onClick={copyToClipboard}
+          onClick={handleCopy}
         >
           <Copy size={12} />
         </Button>

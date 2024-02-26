@@ -18,9 +18,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import generateGuid from '@/services/generate-guid'
 import generate from '@/services/generate-hash'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Fragment, useState } from 'react'
+import { Dices } from 'lucide-react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -48,6 +50,13 @@ export default function GenerateHashPage() {
   const onSubmit = async (data: GenerateHashType) => {
     const hash = await generate(data.hash, data.seed)
     setHash(hash)
+  }
+
+  const handleRandomSeed = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const guid = await generateGuid()
+    const sha1 = await generate('sha256', `${guid}${new Date().getTime()}`)
+    form.setValue('seed', sha1)
   }
 
   return (
@@ -87,8 +96,16 @@ export default function GenerateHashPage() {
             control={form.control}
             name="seed"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>seed</FormLabel>
+              <FormItem className="relative">
+                <FormLabel className="w-full">seed</FormLabel>
+                <Button
+                  variant="outline"
+                  className="absolute right-2 top-8 h-6 w-6"
+                  size="icon"
+                  onClick={handleRandomSeed}
+                >
+                  <Dices size={14} />
+                </Button>
                 <Input placeholder="type your seed" {...field} />
                 <FormMessage />
               </FormItem>

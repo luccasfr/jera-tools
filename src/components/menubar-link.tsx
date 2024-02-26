@@ -8,7 +8,7 @@ type Props = {
   href: string
 }
 
-export default function SidebarLink({ children, href }: Props) {
+export default function MenubarLink({ children, href }: Props) {
   const path = usePathname()
   return (
     <Link

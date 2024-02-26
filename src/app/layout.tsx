@@ -30,7 +30,7 @@ export default function RootLayout({
           <Navbar />
           <div className="flex h-screen pt-[80px]">
             <Sidebar className="hidden min-w-44 md:block" />
-            <div className="flex-1 overflow-auto px-4">{children}</div>
+            <div className="flex-1 overflow-auto px-4 pb-12">{children}</div>
           </div>
           <Toaster />
         </ThemeProvider>

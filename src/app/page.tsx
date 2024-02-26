@@ -2,8 +2,9 @@ import Title from '@/components/title'
 
 export default function Home() {
   return (
-    <main>
+    <div className="space-y-4">
       <Title>Welcome to Jera Tools</Title>
-    </main>
+      <p className="text-sm">select a tool from the menubar</p>
+    </div>
   )
 }

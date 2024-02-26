@@ -1,5 +1,5 @@
 'use client'
-import { Hash, HomeIcon, Percent } from 'lucide-react'
+import { Braces, Database, Hash, HomeIcon, Percent } from 'lucide-react'
 import MenubarLink from './menubar-link'
 
 type SidebarProps = {
@@ -24,11 +24,11 @@ export default function Menubar({ className, onClose }: SidebarProps) {
           url-encode
         </MenubarLink>
         <MenubarLink href="/generate-guid">
-          <Percent size={14} />
+          <Braces size={14} />
           generate-guid
         </MenubarLink>
         <MenubarLink href="/database-url">
-          <Percent size={14} />
+          <Database size={14} />
           database-url
         </MenubarLink>
       </div>

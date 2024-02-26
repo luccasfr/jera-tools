@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} h-screen`}>
+      <body className={`${inter.className} h-scree`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -28,9 +28,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="flex h-full pt-[73px]">
+          <div className="flex h-screen pt-[80px]">
             <Sidebar className="hidden min-w-44 md:block" />
-            <div className="flex-1 overflow-auto px-4 py-2">{children}</div>
+            <div className="flex-1 overflow-auto px-4 pb-14">{children}</div>
           </div>
           <Toaster />
         </ThemeProvider>

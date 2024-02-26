@@ -58,7 +58,7 @@ export default function ResultDisplay({
         >
           <Copy size={12} />
         </Button>
-        {content}
+        <p>{content}</p>
       </div>
     </div>
   )

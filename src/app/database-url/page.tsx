@@ -40,7 +40,7 @@ export default function DatabaseURLPage({}: Props) {
 
   return (
     <div className="space-y-4">
-      <Title>Database URL Generate</Title>
+      <Title>Generate URL Database</Title>
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

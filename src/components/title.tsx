@@ -6,7 +6,7 @@ type TitleProps = {
   variant?: VariantProps<typeof titleVariants>['variant']
 }
 
-const titleVariants = cva('font-mono font-bold lowercase', {
+const titleVariants = cva('font-bold lowercase', {
   variants: {
     variant: {
       title: 'text-2xl',

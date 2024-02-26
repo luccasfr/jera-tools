@@ -10,7 +10,7 @@ type MenubarProps = {
 }
 
 const menubarVariants = cva(
-  'h-full flex-col justify-between border-r-[1px] border-r-border p-2 sm:pb-0 ${className}',
+  'h-full flex-col justify-between border-r-[1px] border-r-border p-2 ${className}',
   {
     variants: {
       variant: {

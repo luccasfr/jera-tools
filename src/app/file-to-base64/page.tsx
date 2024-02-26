@@ -153,20 +153,11 @@ export default function Base64ConvertPage({}: Props) {
               <ResultDisplay
                 content={file.base64}
                 key={file.name}
-                contentName={file.name + ' base64 content'}
+                contentName={file.name}
                 variant="mono"
                 titleInside
                 excerpt={file.base64.substring(0, 150) + '...'}
               />
-              // <div
-              //   key={index}
-              //   className="relative flex flex-col gap-2 rounded border-[1px] border-border p-4"
-              // >
-              //   <p className="absolute -top-4 left-2 rounded bg-background p-1 text-sm font-bold">
-              //     {file.name}
-              //   </p>
-              //   <p className="text-xs">{file.base64}</p>
-              // </div>
             ))}
           </div>
         </>

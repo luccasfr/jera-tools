@@ -10,6 +10,8 @@ type ResultDisplayProps = {
   content: string
   variant?: VariantProps<typeof resultDisplayVariants>['variant']
   className?: string
+  titleInside?: boolean
+  excerpt?: string
 }
 
 const resultDisplayVariants = cva(
@@ -32,6 +34,8 @@ export default function ResultDisplay({
   content,
   variant,
   className,
+  titleInside,
+  excerpt,
 }: ResultDisplayProps) {
   const resultDisplayRef = useRef<HTMLDivElement>(null)
   const handleCopy = () => {
@@ -55,11 +59,16 @@ export default function ResultDisplay({
 
   return (
     <div className="space-y-2">
-      <Title variant="sub-title">{contentName}</Title>
+      {!titleInside && <Title variant="sub-title">{contentName}</Title>}
       <div
         className={resultDisplayVariants({ variant, className })}
         ref={resultDisplayRef}
       >
+        {titleInside && (
+          <p className="absolute -top-4 left-2 rounded bg-background p-1 font-sans text-sm font-bold">
+            {contentName}
+          </p>
+        )}
         <Button
           variant="outline"
           className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2"
@@ -68,7 +77,7 @@ export default function ResultDisplay({
         >
           <Copy size={12} />
         </Button>
-        <p>{content}</p>
+        <p>{excerpt ? excerpt : content}</p>
       </div>
     </div>
   )

@@ -66,6 +66,10 @@ export default function Menubar({ className }: MenubarProps) {
           <Database size={14} />
           generate db url
         </MenubarLink>
+        <MenubarLink href="/file-to-base64">
+          <Hash size={14} />
+          file to b64
+        </MenubarLink>
       </div>
       <footer className="px-1 py-4 text-right text-xs text-primary/60">
         <p>

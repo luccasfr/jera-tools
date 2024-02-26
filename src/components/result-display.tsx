@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useLayoutEffect, useRef } from 'react'
 import { Button } from './ui/button'
 import { toast } from 'sonner'
 import { Copy } from 'lucide-react'
@@ -33,6 +33,7 @@ export default function ResultDisplay({
   variant,
   className,
 }: ResultDisplayProps) {
+  const resultDisplayRef = useRef<HTMLDivElement>(null)
   const handleCopy = () => {
     if (!navigator.clipboard) {
       toast.error('clipboard not available', {
@@ -46,10 +47,19 @@ export default function ResultDisplay({
     })
   }
 
+  useEffect(() => {
+    if (!resultDisplayRef.current) return
+    if (content === '') return
+    resultDisplayRef.current.scrollIntoView({ behavior: 'smooth' })
+  }, [content])
+
   return (
     <div className="space-y-2">
       <Title variant="sub-title">{contentName}</Title>
-      <div className={resultDisplayVariants({ variant, className })}>
+      <div
+        className={resultDisplayVariants({ variant, className })}
+        ref={resultDisplayRef}
+      >
         <Button
           variant="outline"
           className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2"

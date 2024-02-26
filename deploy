@@ -1,5 +1,5 @@
 #!/bin/bash
-logo="Jera WA"
+logo="jera.tools"
 
 logo_figlet=$(docker run --rm mwendler/figlet $logo)
 

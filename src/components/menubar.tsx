@@ -79,7 +79,6 @@ export default function Menubar({ className }: MenubarProps) {
         <div
           className="flex flex-col gap-1"
           onClick={(e) => {
-            e.stopPropagation()
             if (e.target instanceof HTMLAnchorElement) {
               handleClearSearch()
             }

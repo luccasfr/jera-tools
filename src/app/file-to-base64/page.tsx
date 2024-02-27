@@ -1,6 +1,8 @@
 'use client'
 import ResultDisplay from '@/components/result-display'
+import Summary from '@/components/summary'
 import Title from '@/components/title'
+import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -10,8 +12,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { File, Grab, PackageOpen } from 'lucide-react'
-import { DragEvent, useCallback, useEffect, useState } from 'react'
+import { File, Grab, PackageOpen, Upload } from 'lucide-react'
+import {
+  DragEvent,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 
 type Props = {}
 
@@ -71,6 +79,21 @@ export default function Base64ConvertPage({}: Props) {
     setOutputFormat(value as 'data-uri' | 'plain')
   }
 
+  const handleFileSelect = () => {
+    const input = document.createElement('input')
+    try {
+      input.type = 'file'
+      input.multiple = true
+      input.click()
+      input.addEventListener('change', (event) => {
+        const files = (event.target as HTMLInputElement).files
+        setFiles(files)
+      })
+    } finally {
+      input.remove()
+    }
+  }
+
   useEffect(() => {
     setFilesBase64(null)
     if (files) {
@@ -99,33 +122,44 @@ export default function Base64ConvertPage({}: Props) {
   return (
     <div className="space-y-4">
       <Title>File to Base64</Title>
-      <div
-        className="flex min-h-40 w-full items-center justify-center rounded border-[1px] border-border"
-        onDragOver={onDragOver}
-        onDragEnter={onDragEnter}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}
-      >
-        {files ? (
-          <div
-            className={`${files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'} gap-4 py-4 text-sm`}
-          >
-            {Array.from(files).map((file, index) => (
-              <div
-                className="flex flex-col items-center justify-center gap-1"
-                key={index}
-              >
-                <File />
-                <p className="text-xs">{file.name}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="pointer-events-none flex flex-col items-center justify-center text-sm text-primary/60">
-            {statusIcons[dragStatus]}
-            <p>{statusText[dragStatus]}</p>
-          </div>
-        )}
+      <div className="space-y-2">
+        <div className="flex justify-between">
+          <Summary>
+            Convert your files to base64. Drag and drop your files in the box
+            below.
+          </Summary>
+          <Button variant="outline" size="icon" onClick={handleFileSelect}>
+            <Upload size={21} />
+          </Button>
+        </div>
+        <div
+          className="flex min-h-40 w-full items-center justify-center rounded border-[1px] border-border"
+          onDragOver={onDragOver}
+          onDragEnter={onDragEnter}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
+        >
+          {files ? (
+            <div
+              className={`${files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'} gap-4 py-4 text-sm`}
+            >
+              {Array.from(files).map((file, index) => (
+                <div
+                  className="flex flex-col items-center justify-center gap-1"
+                  key={index}
+                >
+                  <File />
+                  <p className="text-xs">{file.name}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="pointer-events-none flex flex-col items-center justify-center text-sm text-primary/60">
+              {statusIcons[dragStatus]}
+              <p>{statusText[dragStatus]}</p>
+            </div>
+          )}
+        </div>
       </div>
       <div className="space-y-2">
         <Label>output format</Label>

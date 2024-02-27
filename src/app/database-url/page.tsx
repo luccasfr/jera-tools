@@ -24,6 +24,7 @@ import { DatabaseURLType, databaseURLSchema } from '@/types/database-url'
 import { databaseURL } from '@/services/database-url'
 import { useState } from 'react'
 import ResultDisplay from '@/components/result-display'
+import Summary from '@/components/summary'
 
 type Props = {}
 
@@ -41,6 +42,9 @@ export default function DatabaseURLPage({}: Props) {
   return (
     <div className="space-y-4">
       <Title>Generate URL Database</Title>
+      <Summary>
+        Generate a database URL connection string for your application.
+      </Summary>
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

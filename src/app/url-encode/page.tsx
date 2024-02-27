@@ -1,5 +1,6 @@
 'use client'
 import ResultDisplay from '@/components/result-display'
+import Summary from '@/components/summary'
 import Title from '@/components/title'
 import { Button } from '@/components/ui/button'
 import {
@@ -40,6 +41,7 @@ export default function URLEncodePage() {
   return (
     <div className="space-y-4">
       <Title>URL Encode</Title>
+      <Summary>Encode a string to be used in a URL.</Summary>
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField

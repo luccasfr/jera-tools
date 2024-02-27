@@ -1,4 +1,5 @@
 'use client'
+import Summary from '@/components/summary'
 import Title from '@/components/title'
 import { Button } from '@/components/ui/button'
 import generateGuid from '@/services/generate-guid'
@@ -36,6 +37,7 @@ export default function GenerateGuidPage({}: Props) {
   return (
     <div className="space-y-4">
       <Title>generate guid</Title>
+      <Summary>Generate a globally unique identifier (GUID).</Summary>
       <div
         className={`relative break-words rounded border-[1px] border-input py-2 pl-3 pr-8 font-mono md:text-sm`}
       >

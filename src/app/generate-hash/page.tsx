@@ -1,5 +1,6 @@
 'use client'
 import ResultDisplay from '@/components/result-display'
+import Summary from '@/components/summary'
 import Title from '@/components/title'
 import { Button } from '@/components/ui/button'
 import {
@@ -62,6 +63,9 @@ export default function GenerateHashPage() {
   return (
     <div className="space-y-4">
       <Title>generate hash</Title>
+      <Summary>
+        Generate a hash from a seed using the selected algorithm.
+      </Summary>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

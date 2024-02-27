@@ -4,6 +4,7 @@ import MenubarLink from './menubar-link'
 import Link from 'next/link'
 import { cva } from 'class-variance-authority'
 import { useEffect, useState } from 'react'
+import Footer from './footer'
 
 type MenubarProps = {
   className?: string
@@ -71,28 +72,7 @@ export default function Menubar({ className }: MenubarProps) {
           file to b64
         </MenubarLink>
       </div>
-      <footer className="px-1 py-4 text-right text-xs text-primary/60">
-        <p>
-          ❤ proudly made by{' '}
-          <Link
-            className="text-primary/90 underline-offset-2 hover:underline"
-            href="https://github.com/luccasfr"
-            target="_blank"
-          >
-            lucas ferreira
-          </Link>
-        </p>
-        <p>
-          <Link
-            className="text-primary/90 underline-offset-2 hover:underline"
-            href="https://jerasoft.com.br"
-            target="_blank"
-          >
-            jerasoft
-          </Link>{' '}
-          &copy; {new Date().getFullYear()}
-        </p>
-      </footer>
+      <Footer />
     </div>
   )
 }

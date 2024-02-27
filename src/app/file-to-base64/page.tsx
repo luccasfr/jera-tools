@@ -121,12 +121,17 @@ export default function Base64ConvertPage({}: Props) {
       <input type="file" className="hidden" ref={fileInputRef} multiple />
       <Title>File to Base64</Title>
       <div className="space-y-2">
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-2">
           <Summary>
             Convert your files to base64. Drag and drop your files in the box
             below.
           </Summary>
-          <Button variant="outline" size="icon" onClick={handleFileSelect}>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleFileSelect}
+            className="flex-shrink-0"
+          >
             <Upload />
           </Button>
         </div>

@@ -9,7 +9,7 @@ type TitleProps = {
 const titleVariants = cva('font-bold lowercase', {
   variants: {
     variant: {
-      title: 'text-2xl',
+      title: 'text-3xl md:text-2xl',
       'sub-title': 'text-lg',
     },
   },

@@ -23,8 +23,8 @@ export default function Navbar({}: Props) {
                   bg-background bg-opacity-10 px-2 py-4 backdrop-blur"
       >
         <div className="my-auto">
-          <div className="inline-flex gap-1 text-xl font-semibold">
-            <Hammer size={24} className="translate-y-[0.1rem]" />
+          <div className="inline-flex items-center gap-2 text-3xl font-semibold md:gap-1 md:text-xl">
+            <Hammer className="h-9 w-9 md:h-6 md:w-6" />
             <p>jera.tools</p>
           </div>
         </div>

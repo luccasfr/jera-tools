@@ -7,7 +7,7 @@ type Props = {
 
 export default function Summary({ className, children }: Props) {
   return (
-    <p className={`text-sm lowercase text-primary/60 ${className}`}>
+    <p className={`lowercase text-primary/60 md:text-sm ${className}`}>
       {children}
     </p>
   )

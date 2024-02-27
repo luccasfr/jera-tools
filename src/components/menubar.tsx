@@ -62,7 +62,7 @@ export default function Menubar({ className }: MenubarProps) {
         <div className="relative h-fit w-fit">
           <Input
             type="text"
-            placeholder="Search..."
+            placeholder="search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="mb-2"

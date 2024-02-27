@@ -1,14 +1,12 @@
 'use client'
-import { Braces, Database, Hash, HomeIcon, Percent } from 'lucide-react'
-import MenubarLink from './menubar-link'
-import Link from 'next/link'
+import useDebounce from '@/hooks/debounce'
+import menuItems from '@/lib/menu-items'
 import { cva } from 'class-variance-authority'
 import { useEffect, useState } from 'react'
 import Footer from './footer'
-
-type MenubarProps = {
-  className?: string
-}
+import MenubarLink from './menubar-link'
+import { Input } from './ui/input'
+import { X } from 'lucide-react'
 
 const menubarVariants = cva(
   'h-full flex-col justify-between border-r-[1px] border-r-border p-2 ${className}',
@@ -25,8 +23,18 @@ const menubarVariants = cva(
   },
 )
 
+type MenubarProps = {
+  className?: string
+}
+
 export default function Menubar({ className }: MenubarProps) {
   const [isMobile, setIsMobile] = useState(false)
+  const [search, setSearch] = useState('')
+  const searchDebounced = useDebounce(search, 100)
+
+  const handleClearSearch = () => {
+    setSearch('')
+  }
 
   useEffect(() => {
     const userAgent = window.navigator.userAgent.toLowerCase()
@@ -39,6 +47,10 @@ export default function Menubar({ className }: MenubarProps) {
     setIsMobile(isMobileDevice)
   }, [])
 
+  const filteredMenuItems = menuItems.filter((item) =>
+    item.label.toLowerCase().includes(searchDebounced.toLowerCase()),
+  )
+
   return (
     <div
       className={menubarVariants({
@@ -46,31 +58,45 @@ export default function Menubar({ className }: MenubarProps) {
         variant: isMobile ? 'mobile' : 'default',
       })}
     >
-      <div className="flex flex-col gap-1">
-        <MenubarLink href="/">
-          <HomeIcon size={14} />
-          home
-        </MenubarLink>
-        <MenubarLink href="/generate-hash">
-          <Hash size={14} />
-          generate hash
-        </MenubarLink>
-        <MenubarLink href="/url-encode">
-          <Percent size={14} />
-          url encode
-        </MenubarLink>
-        <MenubarLink href="/generate-guid">
-          <Braces size={14} />
-          generate guid
-        </MenubarLink>
-        <MenubarLink href="/database-url">
-          <Database size={14} />
-          generate db url
-        </MenubarLink>
-        <MenubarLink href="/file-to-base64">
-          <Hash size={14} />
-          file to b64
-        </MenubarLink>
+      <div>
+        <div className="relative h-fit w-fit">
+          <Input
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="mb-2"
+          />
+          {searchDebounced && (
+            <div
+              className="group absolute right-1 top-3 cursor-pointer"
+              onClick={handleClearSearch}
+            >
+              <X size={16} className="group-hover:opacity-60" />
+            </div>
+          )}
+        </div>
+        <div
+          className="flex flex-col gap-1"
+          onClick={(e) => {
+            e.stopPropagation()
+            if (e.target instanceof HTMLAnchorElement) {
+              handleClearSearch()
+            }
+          }}
+        >
+          {filteredMenuItems.length === 0 && (
+            <div className="flex items-center justify-center gap-1 text-primary/60">
+              <p className="text-xs ">Nada encontrado.</p>
+            </div>
+          )}
+          {filteredMenuItems.map((item) => (
+            <MenubarLink href={item.href} key={item.href}>
+              {item.icon}
+              {item.label}
+            </MenubarLink>
+          ))}
+        </div>
       </div>
       <Footer />
     </div>

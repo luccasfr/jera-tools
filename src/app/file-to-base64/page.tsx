@@ -18,6 +18,7 @@ import {
   MouseEventHandler,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from 'react'
 
@@ -51,6 +52,7 @@ export default function Base64ConvertPage({}: Props) {
   )
   const [files, setFiles] = useState<FileList | null>(null)
   const [filesBase64, setFilesBase64] = useState<FileBase64[] | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const onDragOver = useCallback((event: DragEvent<HTMLDivElement>) => {
     event.preventDefault()
@@ -80,18 +82,13 @@ export default function Base64ConvertPage({}: Props) {
   }
 
   const handleFileSelect = () => {
-    const input = document.createElement('input')
-    try {
-      input.type = 'file'
-      input.multiple = true
-      input.click()
-      input.addEventListener('change', (event) => {
-        const files = (event.target as HTMLInputElement).files
-        setFiles(files)
-      })
-    } finally {
-      input.remove()
-    }
+    const input = fileInputRef.current
+    if (!input) return
+    input.click()
+    input.addEventListener('change', (event) => {
+      const files = (event.target as HTMLInputElement).files
+      setFiles(files)
+    })
   }
 
   useEffect(() => {
@@ -121,6 +118,7 @@ export default function Base64ConvertPage({}: Props) {
 
   return (
     <div className="space-y-4">
+      <input type="file" className="hidden" ref={fileInputRef} multiple />
       <Title>File to Base64</Title>
       <div className="space-y-2">
         <div className="flex justify-between">
@@ -129,7 +127,7 @@ export default function Base64ConvertPage({}: Props) {
             below.
           </Summary>
           <Button variant="outline" size="icon" onClick={handleFileSelect}>
-            <Upload size={21} />
+            <Upload />
           </Button>
         </div>
         <div

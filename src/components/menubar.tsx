@@ -59,7 +59,7 @@ export default function Menubar({ className }: MenubarProps) {
       })}
     >
       <div>
-        <div className="relative h-fit w-fit">
+        <div className="relative h-fit w-full">
           <Input
             type="text"
             placeholder="search..."

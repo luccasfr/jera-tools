@@ -20,7 +20,7 @@ export default function Navbar({}: Props) {
       <div
         className="fixed top-0 z-50 
                   flex w-full justify-between border-b-[1px] border-b-border
-                  bg-background bg-opacity-10 px-2 py-4 backdrop-blur"
+                  bg-background/70 px-2 py-4 backdrop-blur-sm"
       >
         <div className="my-auto">
           <div className="inline-flex items-center gap-2 text-3xl font-semibold md:gap-1 md:text-xl">

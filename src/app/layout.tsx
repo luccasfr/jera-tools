@@ -32,7 +32,7 @@ export default function RootLayout({
           </header>
           <main className="flex h-full pt-[80px]">
             <Menubar className="hidden md:flex" />
-            <div className="flex-1 overflow-auto px-4 pb-12">{children} </div>
+            <div className="mb-12 flex-1 overflow-visible px-4">{children}</div>
           </main>
           <Toaster />
         </ThemeProvider>

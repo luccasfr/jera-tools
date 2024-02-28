@@ -113,7 +113,7 @@ export default function Page() {
       >
         {value ? error?.text ? <X size={18} /> : <Check size={18} /> : null}
         {value ? (
-          <p className="text-sm lowercase ">{error?.text ?? 'valid json'}</p>
+          <p className="lowercase md:text-sm ">{error?.text ?? 'valid json'}</p>
         ) : (
           <Summary>Validate and beautify your JSON.</Summary>
         )}
@@ -130,6 +130,7 @@ export default function Page() {
         tabSize={2}
         fontSize={16}
         annotations={error ? [error] : undefined}
+        className="text-base"
       />
     </div>
   )

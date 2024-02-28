@@ -7,6 +7,7 @@ import Footer from './footer'
 import MenubarLink from './menubar-link'
 import { Input } from './ui/input'
 import { X } from 'lucide-react'
+import { useUIInfo } from './ui-info'
 
 const menubarVariants = cva(
   'h-full flex-col justify-between border-r-[1px] border-r-border p-2 ${className}',
@@ -28,24 +29,13 @@ type MenubarProps = {
 }
 
 export default function Menubar({ className }: MenubarProps) {
-  const [isMobile, setIsMobile] = useState(false)
+  const { isMobile } = useUIInfo()
   const [search, setSearch] = useState('')
   const searchDebounced = useDebounce(search, 100)
 
   const handleClearSearch = () => {
     setSearch('')
   }
-
-  useEffect(() => {
-    const userAgent = window.navigator.userAgent.toLowerCase()
-    const mobileKeywords = ['iphone', 'android', 'windows phone', 'blackberry']
-
-    const isMobileDevice = mobileKeywords.some((keyword) =>
-      userAgent.includes(keyword),
-    )
-
-    setIsMobile(isMobileDevice)
-  }, [])
 
   const filteredMenuItems = menuItems.filter((item) =>
     item.label.toLowerCase().includes(searchDebounced.toLowerCase()),

@@ -87,7 +87,12 @@ export default function Page() {
         : 'chrome'
 
   return (
-    <div className="h-full space-y-2 pb-4">
+    <div
+      className="h-full space-y-2 pb-4"
+      style={{
+        maxHeight: 'calc(100vh - 150px)',
+      }}
+    >
       <div className="flex justify-between">
         <Title>JSON Lint</Title>
         <TooltipProvider>

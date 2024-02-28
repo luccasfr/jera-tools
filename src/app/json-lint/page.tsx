@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/theme-chrome'
-import { Indent } from 'lucide-react'
+import { Check, Indent, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import {
   Tooltip,
@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { toast } from 'sonner'
+import Summary from '@/components/summary'
 
 export default function Page() {
   const [value, setValue] = useState('')
@@ -107,8 +108,15 @@ export default function Page() {
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div className="min-h-[0.9rem]">
-        <p className="text-sm lowercase text-red-500">{error?.text}</p>
+      <div
+        className={`flex items-center gap-1 ${value ? (error?.text ? 'bg-red-500/200 text-red-500' : '') : 'text-primary/60'}`}
+      >
+        {value ? error?.text ? <X size={18} /> : <Check size={18} /> : null}
+        {value ? (
+          <p className="text-sm lowercase ">{error?.text ?? 'valid json'}</p>
+        ) : (
+          <Summary>Validate and beautify your JSON.</Summary>
+        )}
       </div>
       <AceEditor
         mode="json"
@@ -119,6 +127,7 @@ export default function Page() {
         value={value}
         width="100%"
         height="100%"
+        tabSize={2}
         fontSize={16}
         annotations={error ? [error] : undefined}
       />

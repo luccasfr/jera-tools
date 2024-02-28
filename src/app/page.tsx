@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="space-y-4">
       <Title>Welcome to Jera Tools</Title>
-      <Summary>select a tool from the menubar</Summary>
+      <Summary>pick a tool from the menubar.</Summary>
     </div>
   )
 }

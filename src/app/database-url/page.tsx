@@ -1,5 +1,8 @@
 'use client'
+import ResultDisplay from '@/components/result-display'
+import Summary from '@/components/summary'
 import Title from '@/components/title'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -8,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
@@ -16,15 +19,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { DatabaseURLType, databaseURLSchema } from '@/types/database-url'
 import { databaseURL } from '@/services/database-url'
+import { DatabaseURLType, databaseURLSchema } from '@/types/database-url'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import ResultDisplay from '@/components/result-display'
-import Summary from '@/components/summary'
+import { useForm } from 'react-hook-form'
 
 type Props = {}
 
@@ -41,7 +40,7 @@ export default function DatabaseURLPage({}: Props) {
 
   return (
     <div className="space-y-4">
-      <Title>Generate URL Database</Title>
+      <Title>Generate db URL</Title>
       <Summary>
         Generate a database URL connection string for your application.
       </Summary>

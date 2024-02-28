@@ -65,7 +65,7 @@ export default function Menubar({ className }: MenubarProps) {
             placeholder="search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="mb-2"
+            className="mb-4"
           />
           {searchDebounced && (
             <div
@@ -86,7 +86,7 @@ export default function Menubar({ className }: MenubarProps) {
         >
           {filteredMenuItems.length === 0 && (
             <div className="flex items-center justify-center gap-1 text-primary/60">
-              <p className="text-xs ">Nada encontrado.</p>
+              <p className="text-xs ">nothing found</p>
             </div>
           )}
           {filteredMenuItems.map((item) => (

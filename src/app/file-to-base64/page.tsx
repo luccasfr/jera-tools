@@ -119,7 +119,7 @@ export default function Base64ConvertPage({}: Props) {
   return (
     <div className="space-y-4">
       <input type="file" className="hidden" ref={fileInputRef} multiple />
-      <Title>File to Base64</Title>
+      <Title>File to b64</Title>
       <div className="space-y-2">
         <div className="flex justify-between gap-2">
           <Summary>

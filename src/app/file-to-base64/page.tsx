@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import UploadFile from '@/components/upload-file'
 import { File, Grab, PackageOpen, Upload } from 'lucide-react'
 import {
   DragEvent,
@@ -50,121 +51,32 @@ export default function Base64ConvertPage({}: Props) {
   const [outputFormat, setOutputFormat] = useState<'data-uri' | 'plain'>(
     'data-uri',
   )
-  const [files, setFiles] = useState<FileList | null>(null)
   const [filesBase64, setFilesBase64] = useState<FileBase64[] | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-
-  const onDragOver = useCallback((event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setDragStatus('over')
-    setFiles(null)
-  }, [])
-
-  const onDragEnter = useCallback((event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setDragStatus('enter')
-  }, [])
-
-  const onDragLeave = useCallback((event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setDragStatus('leave')
-  }, [])
-
-  const onDrop = useCallback((event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setDragStatus('drop')
-    const files = event.dataTransfer.files
-    setFiles(files)
-  }, [])
 
   const handleOutputFormatChange = (value: string) => {
     setOutputFormat(value as 'data-uri' | 'plain')
   }
-
-  const handleFileSelect = () => {
-    const input = fileInputRef.current
-    if (!input) return
-    input.click()
-    input.addEventListener('change', (event) => {
-      const files = (event.target as HTMLInputElement).files
-      setFiles(files)
-    })
-  }
-
-  useEffect(() => {
-    setFilesBase64(null)
-    if (files) {
-      Array.from(files).forEach((file) => {
-        const reader = new FileReader()
-        reader.onload = (event) => {
-          let base64 = event.target?.result
-          if (typeof base64 === 'string') {
-            if (outputFormat === 'plain') {
-              base64 = base64.split(',')[1]
-            }
-            setFilesBase64((prev) => [
-              ...(prev || []),
-              {
-                name: file.name,
-                base64: base64 as string,
-              },
-            ])
-          }
-        }
-        reader.readAsDataURL(file)
-      })
-    }
-  }, [files, outputFormat])
 
   return (
     <div className="space-y-4">
       <input type="file" className="hidden" ref={fileInputRef} multiple />
       <Title>File to b64</Title>
       <div className="space-y-2">
-        <div className="flex justify-between gap-2">
-          <Summary>
-            Convert your files to base64. Drag and drop your files in the box
-            below.
-          </Summary>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={handleFileSelect}
-            className="flex-shrink-0"
-          >
-            <Upload />
-          </Button>
-        </div>
-        <div
-          className="flex min-h-40 w-full items-center justify-center rounded border-[1px] border-border"
-          onDragOver={onDragOver}
-          onDragEnter={onDragEnter}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
-        >
-          {files ? (
-            <div
-              className={`${files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'} gap-4 py-4 text-sm`}
-            >
-              {Array.from(files).map((file, index) => (
-                <div
-                  className="flex flex-col items-center justify-center gap-1"
-                  key={index}
-                >
-                  <File />
-                  <p className="text-xs">{file.name}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="pointer-events-none flex flex-col items-center justify-center text-sm text-primary/60">
-              {statusIcons[dragStatus]}
-              <p>{statusText[dragStatus]}</p>
-            </div>
-          )}
-        </div>
+        <Summary>
+          Convert your files to base64. Drag and drop your files in the box
+          below.
+        </Summary>
       </div>
       <div className="space-y-2">
+        <UploadFile
+          className="mb-2"
+          multiple
+          outputFormat={outputFormat}
+          onFilesChange={(f) => {
+            setFilesBase64(f)
+          }}
+        />
         <Label>output format</Label>
         <Select
           defaultValue="data-uri"

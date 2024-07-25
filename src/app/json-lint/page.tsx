@@ -1,32 +1,31 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
-import AceEditor, { IMarker } from 'react-ace'
 import Title from '@/components/title'
-import { Button } from '@/components/ui/button'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import AceEditor from 'react-ace'
+
 import 'ace-builds/src-noconflict/ext-searchbox'
 import 'ace-builds/src-noconflict/mode-json'
-import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/theme-chrome'
-import { Check, Indent, X } from 'lucide-react'
+import 'ace-builds/src-noconflict/theme-dracula'
+import { Check, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { toast } from 'sonner'
-import Summary from '@/components/summary'
 
-export default function Page() {
+import JSONLintToolbar from '@/components/json-lint-toolbar'
+import Summary from '@/components/summary'
+import { toast } from 'sonner'
+
+export default function JsonLintPage() {
   const [value, setValue] = useState('')
   const { theme, systemTheme } = useTheme()
+  const [jsonName, setJsonName] = useState('file.json')
   const [error, setError] = useState<{
     row?: number
     column?: number
     text: string
     type: string
   } | null>(null)
+  const editorRef = useRef<AceEditor | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
   const beautify = useCallback(() => {
     try {
@@ -38,6 +37,34 @@ export default function Page() {
     }
   }, [value])
 
+  const saveToFile = useCallback(() => {
+    const blob = new Blob([value], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a') as HTMLAnchorElement
+    a.href = url
+    a.download = jsonName
+    a.click()
+    toast.info('download started')
+    URL.revokeObjectURL(url)
+  }, [value, jsonName])
+
+  const openFile = useCallback(() => {
+    const input = inputRef.current
+    if (!input) return
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0]
+      if (!file) return
+      const reader = new FileReader()
+      reader.onload = () => {
+        setValue(reader.result as string)
+        toast.success('file loaded')
+      }
+      reader.readAsText(file)
+    }
+    input.click()
+    input.value = ''
+  }, [])
+
   const handleChange = (newValue: string) => {
     setValue(newValue)
   }
@@ -45,12 +72,29 @@ export default function Page() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.shiftKey && e.altKey && e.key === 'F') {
+        console.log('aqui')
         beautify()
+      }
+      if ((e.ctrlKey || e.metaKey) && e.code === 'KeyF') {
+        e?.preventDefault()
+        if (editorRef.current) editorRef.current.editor.execCommand('find')
+      }
+      if ((e.ctrlKey || e.metaKey) && e.code === 'KeyS') {
+        e?.preventDefault()
+        saveToFile()
+      }
+      if ((e.ctrlKey || e.metaKey) && e.code === 'KeyO') {
+        e?.preventDefault()
+        openFile()
+      }
+      if (e.code === 'F3') {
+        e?.preventDefault()
+        if (editorRef.current) editorRef.current.editor.execCommand('findnext')
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [beautify])
+  }, [beautify, saveToFile, openFile])
 
   useEffect(() => {
     try {
@@ -81,10 +125,10 @@ export default function Page() {
   const editorTheme =
     theme === 'system'
       ? systemTheme === 'dark'
-        ? 'chaos'
+        ? 'dracula'
         : 'chrome'
       : theme === 'dark'
-        ? 'chaos'
+        ? 'dracula'
         : 'chrome'
 
   return (
@@ -94,25 +138,22 @@ export default function Page() {
         maxHeight: 'calc(100vh - 150px)',
       }}
     >
-      <div className="flex justify-between">
+      <input
+        type="file"
+        id="input"
+        className="hidden"
+        accept=".json"
+        ref={inputRef}
+      />
+      <div className="mt-2 flex justify-between">
         <Title>JSON Lint</Title>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                className="flex-shrink-0"
-                variant="outline"
-                size="icon"
-                onClick={beautify}
-              >
-                <Indent />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="md:text-xs">Beautify JSON (Shift + Alt + F)</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <JSONLintToolbar
+          onBeautify={beautify}
+          onSave={saveToFile}
+          onFileOpen={openFile}
+          onJsonNameChange={setJsonName}
+          jsonName={jsonName}
+        />
       </div>
       <div
         className={`flex items-center gap-1 ${value ? (error?.text ? 'bg-red-500/200 text-red-500' : '') : 'text-primary/60'}`}
@@ -137,6 +178,7 @@ export default function Page() {
         fontSize={16}
         annotations={error ? [error] : undefined}
         className="text-base"
+        ref={editorRef}
       />
     </div>
   )

@@ -56,6 +56,7 @@ export default function JsonLintPage() {
       if (!file) return
       const reader = new FileReader()
       reader.onload = () => {
+        setJsonName(file.name)
         setValue(reader.result as string)
         toast.success('file loaded')
       }

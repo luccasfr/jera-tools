@@ -4,6 +4,8 @@
 
 made to solve some of my recurring daily problems as a developer. in constant development.
 
+self-hosted in one of my own servers in Brazil.
+
 ## screenshots
 
 ![jera.tools](./screenshot.png)

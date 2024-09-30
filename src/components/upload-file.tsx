@@ -91,18 +91,24 @@ export default function UploadFile({
     (file: File) => {
       const type = file.type.split('/')[0]
       switch (fileType) {
-        case 'image':
+        case 'image': {
           return type === 'image'
-        case 'pdf':
+        }
+        case 'pdf': {
           return file.type === 'application/pdf'
-        case 'audio':
+        }
+        case 'audio': {
           return type === 'audio'
-        case 'video':
+        }
+        case 'video': {
           return type === 'video'
-        case 'text':
+        }
+        case 'text': {
           return type === 'text'
-        case 'other':
+        }
+        case 'other': {
           return true
+        }
       }
     },
     [fileType],
@@ -117,9 +123,7 @@ export default function UploadFile({
         toast.error('only one file allowed!')
         return
       }
-      const invalidFiles = Array.from(files).filter(
-        (file) => !checkFileType(file),
-      )
+      const invalidFiles = [...files].filter((file) => !checkFileType(file))
       if (invalidFiles.length > 0) {
         toast.error('invalid file type!')
         return
@@ -160,10 +164,10 @@ export default function UploadFile({
   useEffect(() => {
     setFilesBase64(null)
     if (files) {
-      let fileList = Array.from(files)
-      fileList.forEach((file) => {
+      let fileList = [...files]
+      for (const file of fileList) {
         const reader = new FileReader()
-        reader.onload = (event) => {
+        reader.addEventListener('load', (event) => {
           let base64 = event.target?.result
           if (
             outputFormatRef.current === 'plain' &&
@@ -180,26 +184,32 @@ export default function UploadFile({
               },
             ])
           }
-        }
+        })
         reader.readAsDataURL(file)
-      })
+      }
     }
   }, [files])
 
   const getFileType = useCallback(() => {
     switch (fileType) {
-      case 'image':
+      case 'image': {
         return 'image/*'
-      case 'pdf':
+      }
+      case 'pdf': {
         return 'application/pdf'
-      case 'audio':
+      }
+      case 'audio': {
         return 'audio/*'
-      case 'video':
+      }
+      case 'video': {
         return 'video/*'
-      case 'text':
+      }
+      case 'text': {
         return 'text/*'
-      case 'other':
+      }
+      case 'other': {
         return '*'
+      }
     }
   }, [fileType])
 
@@ -242,7 +252,7 @@ export default function UploadFile({
             <div
               className={`${files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'} gap-4 py-4 text-sm`}
             >
-              {Array.from(files).map((file, index) => (
+              {[...files].map((file, index) => (
                 <div
                   className="flex flex-col items-center justify-center gap-1"
                   key={index}

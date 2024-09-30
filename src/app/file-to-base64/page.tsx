@@ -2,7 +2,6 @@
 import ResultDisplay from '@/components/result-display'
 import Summary from '@/components/summary'
 import Title from '@/components/title'
-import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -13,41 +12,14 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import UploadFile from '@/components/upload-file'
-import { File, Grab, PackageOpen, Upload } from 'lucide-react'
-import {
-  DragEvent,
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
-
-type Props = {}
-
-const statusIcons: Record<string, JSX.Element> = {
-  over: <PackageOpen />,
-  enter: <Grab />,
-  leave: <Grab />,
-  none: <Grab />,
-}
-
-const statusText: Record<string, string> = {
-  over: 'yeah drop it!',
-  enter: 'drop it!',
-  leave: 'drag your files here',
-  none: 'drag your files here',
-}
+import { useRef, useState } from 'react'
 
 type FileBase64 = {
   name: string
   base64: string
 }
 
-export default function Base64ConvertPage({}: Props) {
-  const [dragStatus, setDragStatus] = useState<
-    'over' | 'enter' | 'leave' | 'drop' | 'none'
-  >('none')
+export default function Base64ConvertPage() {
   const [outputFormat, setOutputFormat] = useState<'data-uri' | 'plain'>(
     'data-uri',
   )
@@ -98,14 +70,14 @@ export default function Base64ConvertPage({}: Props) {
         <>
           <Title variant="sub-title">results</Title>
           <div className="space-y-8 break-words">
-            {filesBase64.map((file, index) => (
+            {filesBase64.map((file) => (
               <ResultDisplay
                 content={file.base64}
                 key={file.name}
                 contentName={file.name}
                 variant="mono"
                 titleInside
-                excerpt={file.base64.substring(0, 150) + '...'}
+                excerpt={file.base64.slice(0, 150) + '...'}
               />
             ))}
           </div>

@@ -1,17 +1,18 @@
 'use client'
-import Title from '@/components/title'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import AceEditor from 'react-ace'
 
+// Primary imports
+import AceEditor from 'react-ace'
+// Remaining imports
+import JSONEditorToolbar from '@/components/json-editor-toolbar'
+import Summary from '@/components/summary'
+import Title from '@/components/title'
 import 'ace-builds/src-noconflict/ext-searchbox'
 import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-chrome'
 import 'ace-builds/src-noconflict/theme-dracula'
 import { Check, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
-
-import JSONLintToolbar from '@/components/json-lint-toolbar'
-import Summary from '@/components/summary'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 export default function JsonLintPage() {
@@ -32,8 +33,8 @@ export default function JsonLintPage() {
       const parsed = JSON.parse(value)
       setValue(JSON.stringify(parsed, null, 2))
       toast.success('json beautified')
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      console.error(error)
     }
   }, [value])
 
@@ -51,17 +52,18 @@ export default function JsonLintPage() {
   const openFile = useCallback(() => {
     const input = inputRef.current
     if (!input) return
-    input.onchange = (e) => {
+    input.addEventListener('change', async (e) => {
       const file = (e.target as HTMLInputElement).files?.[0]
       if (!file) return
+
       const reader = new FileReader()
-      reader.onload = () => {
+      reader.addEventListener('load', () => {
         setJsonName(file.name)
         setValue(reader.result as string)
         toast.success('file loaded')
-      }
-      reader.readAsText(file)
-    }
+      })
+      reader.readAsDataURL(file)
+    })
     input.click()
     input.value = ''
   }, [])
@@ -73,7 +75,6 @@ export default function JsonLintPage() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.shiftKey && e.altKey && e.key === 'F') {
-        console.log('aqui')
         beautify()
       }
       if ((e.ctrlKey || e.metaKey) && e.code === 'KeyF') {
@@ -101,11 +102,11 @@ export default function JsonLintPage() {
     try {
       JSON.parse(value)
       setError(null)
-    } catch (e) {
-      if (e instanceof Error) {
+    } catch (error_) {
+      if (error_ instanceof Error) {
         if (!value) return setError(null)
-        const message = e.message
-        const matches = message.match(/line ?([0-9]+) ?column ?([0-9]+)/)
+        const message = error_.message
+        const matches = message.match(/line ?(\d+) ?column ?(\d+)/)
         if (!matches)
           return setError({
             type: 'error',
@@ -123,14 +124,24 @@ export default function JsonLintPage() {
     }
   }, [value])
 
-  const editorTheme =
-    theme === 'system'
-      ? systemTheme === 'dark'
-        ? 'dracula'
-        : 'chrome'
-      : theme === 'dark'
-        ? 'dracula'
-        : 'chrome'
+  const getTheme = () => {
+    if (theme === 'system') {
+      switch (systemTheme) {
+        case 'dark': {
+          return 'dracula'
+        }
+        case 'light': {
+          return 'chrome'
+        }
+        default: {
+          return 'chrome'
+        }
+      }
+    }
+    return theme === 'dark' ? 'dracula' : 'chrome'
+  }
+
+  const editorTheme = getTheme()
 
   return (
     <div
@@ -147,8 +158,8 @@ export default function JsonLintPage() {
         ref={inputRef}
       />
       <div className="mt-2 flex justify-between">
-        <Title>JSON Lint</Title>
-        <JSONLintToolbar
+        <Title>JSON Editor</Title>
+        <JSONEditorToolbar
           onBeautify={beautify}
           onSave={saveToFile}
           onFileOpen={openFile}
@@ -159,11 +170,11 @@ export default function JsonLintPage() {
       <div
         className={`flex items-center gap-1 ${value ? (error?.text ? 'bg-red-500/200 text-red-500' : '') : 'text-primary/60'}`}
       >
-        {value ? error?.text ? <X size={18} /> : <Check size={18} /> : null}
+        {value && error?.text ? <X size={18} /> : <Check size={18} />}
         {value ? (
           <p className="lowercase md:text-sm ">{error?.text ?? 'valid json'}</p>
         ) : (
-          <Summary>Validate and beautify your JSON.</Summary>
+          <Summary>Lint, edit and beautify your JSON.</Summary>
         )}
       </div>
       <AceEditor

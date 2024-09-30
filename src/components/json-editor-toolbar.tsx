@@ -5,23 +5,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { FileJson, FolderOpen, Indent, Save } from 'lucide-react'
+import { FolderOpen, Indent, Save } from 'lucide-react'
 import { Input } from './ui/input'
 
-type JSONLintToolbarProps = {
+type JSONEditorToolbarProps = {
   onBeautify: () => void
   onSave: () => void
   onFileOpen: () => void
   onJsonNameChange: (name: string) => void
   jsonName: string
 }
-export default function JSONLintToolbar({
+export default function JSONEditorToolbar({
   onBeautify,
   onSave,
   onFileOpen,
   onJsonNameChange,
   jsonName,
-}: JSONLintToolbarProps) {
+}: JSONEditorToolbarProps) {
   return (
     <div className="flex items-center gap-2">
       <TooltipProvider>

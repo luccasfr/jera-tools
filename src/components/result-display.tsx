@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect, useLayoutEffect, useRef } from 'react'
-import { Button } from './ui/button'
-import { toast } from 'sonner'
+import { type VariantProps, cva } from 'class-variance-authority'
 import { Copy } from 'lucide-react'
-import { VariantProps, cva } from 'class-variance-authority'
+import { useEffect, useRef } from 'react'
+import { toast } from 'sonner'
 import Title from './title'
+import { Button } from './ui/button'
 
 type ResultDisplayProps = {
   contentName: string
@@ -77,7 +77,7 @@ export default function ResultDisplay({
         >
           <Copy size={12} />
         </Button>
-        <p>{excerpt ? excerpt : content}</p>
+        <p>{excerpt ?? content}</p>
       </div>
     </div>
   )

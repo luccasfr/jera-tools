@@ -22,7 +22,7 @@ const menuItems = [
     label: 'generate db url',
   },
   { href: '/file-to-base64', icon: <Hash size={14} />, label: 'file to b64' },
-  { href: '/json-lint', icon: <FileJson size={14} />, label: 'json lint' },
+  { href: '/json-editor', icon: <FileJson size={14} />, label: 'json editor' },
 ]
 
 export default menuItems

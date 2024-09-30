@@ -56,7 +56,7 @@ export default function GenerateHashPage() {
   const handleRandomSeed = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const guid = await generateGuid()
-    const sha1 = await generate('sha256', `${guid}${new Date().getTime()}`)
+    const sha1 = await generate('sha256', `${guid}${Date.now()}`)
     form.setValue('seed', sha1)
   }
 

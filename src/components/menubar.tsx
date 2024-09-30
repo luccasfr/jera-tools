@@ -2,12 +2,12 @@
 import useDebounce from '@/hooks/debounce'
 import menuItems from '@/lib/menu-items'
 import { cva } from 'class-variance-authority'
-import { useEffect, useState } from 'react'
+import { X } from 'lucide-react'
+import { useState } from 'react'
 import Footer from './footer'
 import MenubarLink from './menubar-link'
-import { Input } from './ui/input'
-import { X } from 'lucide-react'
 import { useUIInfo } from './ui-info'
+import { Input } from './ui/input'
 
 const menubarVariants = cva(
   'h-full flex-col justify-between border-r-[1px] border-r-border p-2 ${className}',

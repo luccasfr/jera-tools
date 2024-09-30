@@ -16,8 +16,8 @@ export const databaseURLSchema = z.object({
       required_error: 'you must type a port',
     })
     .refine((value) => {
-      const port = parseInt(value, 10)
-      return port >= 0 && port <= 65535
+      const port = Number.parseInt(value, 10)
+      return port >= 0 && port <= 65_535
     }, 'port must be a number between 0 and 65535'),
   username: z.string({
     required_error: 'you must type a username',

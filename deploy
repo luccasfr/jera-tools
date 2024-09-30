@@ -1,12 +1,4 @@
 #!/bin/bash
-logo="jera.tools"
-
-# Pulling the figlet image
-docker pull mwendler/figlet >/dev/null 2>&1
-
-# Displaying the logo
-logo_figlet=$(docker run --rm mwendler/figlet "$logo")
-echo "$logo_figlet"
 
 # Updating the project
 printf "Updating the project\n\n"

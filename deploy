@@ -1,15 +1,21 @@
 #!/bin/bash
 logo="jera.tools"
 
-logo_figlet=$(docker run --rm mwendler/figlet $logo)
+# Pulling the figlet image
+docker pull mwendler/figlet >/dev/null 2>&1
 
+# Displaying the logo
+logo_figlet=$(docker run --rm mwendler/figlet "$logo")
 echo "$logo_figlet"
 
-printf "Atualizando o projeto\n\n"
+# Updating the project
+printf "Updating the project\n\n"
 git fetch && git pull
 
-printf "\nCompilando o projeto\n\n"
+# Building the project
+printf "\nBuilding the project\n\n"
 docker compose build
 
-printf "\nSubindo o projeto\n\n"
+# Starting the project
+printf "\nStarting the project\n\n"
 docker compose up -d

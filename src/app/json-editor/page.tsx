@@ -56,13 +56,10 @@ export default function JsonLintPage() {
       const file = (e.target as HTMLInputElement).files?.[0]
       if (!file) return
 
-      const reader = new FileReader()
-      reader.addEventListener('load', () => {
-        setJsonName(file.name)
-        setValue(reader.result as string)
-        toast.success('file loaded')
-      })
-      reader.readAsDataURL(file)
+      const text = await file.text()
+      setJsonName(file.name)
+      setValue(text)
+      toast.success('file loaded')
     })
     input.click()
     input.value = ''

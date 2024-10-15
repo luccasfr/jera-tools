@@ -25,9 +25,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-type Props = {}
 
-export default function DatabaseURLPage({}: Props) {
+export default function DatabaseURLPage() {
   const [url, setUrl] = useState<string>('')
   const form = useForm<DatabaseURLType>({
     resolver: zodResolver(databaseURLSchema),

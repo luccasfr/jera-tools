@@ -24,6 +24,7 @@ const menuItems = [
   { href: '/file-to-base64', icon: <Hash size={14} />, label: 'file to b64' },
   { href: '/text-to-base64', icon: <Hash size={14} />, label: 'text to b64' },
   { href: '/json-editor', icon: <FileJson size={14} />, label: 'json editor' },
+  { href: '/bcrypt', icon: <Hash size={14} />, label: 'bcrypt' },
 ]
 
 export default menuItems

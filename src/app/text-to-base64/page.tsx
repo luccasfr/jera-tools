@@ -44,7 +44,7 @@ export default function TextToBase64Page() {
               </FormItem>
             )}
           />
-          <Button type="submit">convert</Button>
+          <Button type="submit">generate</Button>
         </form>
       </Form>
       {base64 && (

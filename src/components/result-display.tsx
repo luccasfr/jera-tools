@@ -15,7 +15,7 @@ type ResultDisplayProps = {
 }
 
 const resultDisplayVariants = cva(
-  'relative break-words rounded border-[1px] border-input py-2 pl-3 pr-8',
+  'relative break-all rounded border-[1px] border-input py-2 pl-3 pr-8',
   {
     variants: {
       variant: {

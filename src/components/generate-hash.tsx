@@ -1,7 +1,6 @@
 'use client'
+
 import ResultDisplay from '@/components/result-display'
-import Summary from '@/components/summary'
-import Title from '@/components/title'
 import { Button } from '@/components/ui/button'
 import {
   Form,

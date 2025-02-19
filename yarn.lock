@@ -149,9 +149,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
 "@luccasfr/eslint-config-nextjs@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@luccasfr/eslint-config-nextjs/-/eslint-config-nextjs-1.0.11.tgz#69646419035555df980ec3f36cd1ff64564a71ad"
-  integrity sha512-HWGZgXVBKYCgulcpS0RtAyAS76mTYPQjoRWH07KzJp3q8O1XiVlyMtr1VpUDkNTJu/bQm2NeO4xa7bxE0Dkx7g==
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@luccasfr/eslint-config-nextjs/-/eslint-config-nextjs-1.0.12.tgz#66de66711f850f0bbddea26566c218542ea155c2"
+  integrity sha512-SLCLA+Sxn7+GrSA3uSykhrlPpECu6LXPkZtwX39HQTrmn0zbMFxDtgYACutymDl78R1pTdkUQwRAG7shxIAYdA==
 
 "@next/env@14.2.15":
   version "14.2.15"
@@ -2447,10 +2447,10 @@ lru-cache@^10.2.0:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.4.3.tgz#410fc8a17b70e598013df257c2446b7f3383f119"
   integrity sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==
 
-lucide-react@^0.475.0:
-  version "0.475.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.475.0.tgz#4b7b62c024f153ee4b52a6a0f33f9e72f07156f0"
-  integrity sha512-NJzvVu1HwFVeZ+Gwq2q00KygM1aBhy/ZrhY9FsAgJtpB+E4R7uxRk9M2iKvHa6/vNxZydIB59htha4c2vvwvVg==
+lucide-react@^0.336.0:
+  version "0.336.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.336.0.tgz#bbb09598e9c451564c5d428ea6f201ec902885d2"
+  integrity sha512-e06J4Qrdrk3BP/hf3MnkW3LnymdthfyEtVbdEg0xPQ/olTEKfOfTv03DYmdRm1+XpaNQdCpiHT7Vi6regbxDCQ==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"
@@ -3621,7 +3621,7 @@ typed-array-length@^1.0.7:
     possible-typed-array-names "^1.0.0"
     reflect.getprototypeof "^1.0.6"
 
-typescript@^5.7.3:
+typescript@^5.4.0:
   version "5.7.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.3.tgz#919b44a7dbb8583a9b856d162be24a54bf80073e"
   integrity sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==

@@ -1,11 +1,11 @@
 'use server'
 
 import { type BcryptCompareType, type BcryptGenerateType } from '@/types/bcrypt'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 export async function generateBcryptHash({
   text,
-  saltRounds,
+  saltRounds
 }: BcryptGenerateType): Promise<string> {
   const response = await bcrypt.hash(text, saltRounds ?? 10)
   return response
@@ -13,7 +13,7 @@ export async function generateBcryptHash({
 
 export async function compareBcryptHash({
   text,
-  hash,
+  hash
 }: BcryptCompareType): Promise<boolean> {
   const response = await bcrypt.compare(text, hash)
   return response

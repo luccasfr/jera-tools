@@ -10,7 +10,7 @@ const statusIcons: Record<string, JSX.Element> = {
   enter: <Grab />,
   leave: <Grab />,
   none: <Grab />,
-  mouseEnter: <Pointer />,
+  mouseEnter: <Pointer />
 }
 
 const statusText: Record<string, string> = {
@@ -18,7 +18,7 @@ const statusText: Record<string, string> = {
   enter: 'drop it!',
   leave: 'drag your files here',
   none: 'drag your files here',
-  mouseEnter: 'click to select files',
+  mouseEnter: 'click to select files'
 }
 
 export type FileBase64 = {
@@ -111,7 +111,7 @@ export default function UploadFile({
         }
       }
     },
-    [fileType],
+    [fileType]
   )
 
   const onDrop = useCallback(
@@ -130,7 +130,7 @@ export default function UploadFile({
       }
       setFiles(files)
     },
-    [multiple, checkFileType],
+    [multiple, checkFileType]
   )
 
   const onMouseEnter = useCallback(() => {
@@ -180,8 +180,8 @@ export default function UploadFile({
               ...(prev || []),
               {
                 name: file.name,
-                base64: base64 as string,
-              },
+                base64: base64 as string
+              }
             ])
           }
         })
@@ -238,8 +238,8 @@ export default function UploadFile({
       )}
       <div className="space-y-2">
         <div
-          className={`flex min-h-40 w-full cursor-pointer items-center justify-center 
-                     rounded border-[1px]  ${errorMessage ? 'border-destructive' : 'border-border'}`}
+          className={`flex min-h-40 w-full cursor-pointer items-center justify-center rounded
+            border-[1px] ${errorMessage ? 'border-destructive' : 'border-border'}`}
           onDragOver={onDragOver}
           onDragEnter={onDragEnter}
           onDragLeave={onDragLeave}
@@ -250,7 +250,8 @@ export default function UploadFile({
         >
           {files ? (
             <div
-              className={`${files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'} gap-4 py-4 text-sm`}
+              className={`${files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'} gap-4 py-4
+                text-sm`}
             >
               {[...files].map((file, index) => (
                 <div
@@ -274,7 +275,8 @@ export default function UploadFile({
             </div>
           ) : (
             <div
-              className={`pointer-events-none flex flex-col items-center justify-center px-4 text-sm text-primary/60`}
+              className={`pointer-events-none flex flex-col items-center justify-center px-4 text-sm
+                text-primary/60`}
             >
               {statusIcons[dragStatus]}
               <p>{statusText[dragStatus]}</p>

@@ -10,19 +10,19 @@ const titleVariants = cva('font-bold flex-shrink-0 lowercase', {
   variants: {
     variant: {
       title: 'text-3xl md:text-2xl',
-      'sub-title': 'text-lg',
-    },
+      'sub-title': 'text-lg'
+    }
   },
   defaultVariants: {
-    variant: 'title',
-  },
+    variant: 'title'
+  }
 })
 
 export default function Title({ children, variant }: TitleProps) {
   return (
     <h1
       className={titleVariants({
-        variant,
+        variant
       })}
     >
       {children}

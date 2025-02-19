@@ -19,7 +19,7 @@ export function UIInfoProvider({ children }: { children: React.ReactNode }) {
     const mobileKeywords = ['iphone', 'android', 'windows phone', 'blackberry']
 
     const isMobileDevice = mobileKeywords.some((keyword) =>
-      userAgent.includes(keyword),
+      userAgent.includes(keyword)
     )
     setIsMobile(isMobileDevice)
 

@@ -4,7 +4,7 @@ import {
   FileJson,
   Hash,
   HomeIcon,
-  Percent,
+  Percent
 } from 'lucide-react'
 
 const menuItems = [
@@ -14,17 +14,17 @@ const menuItems = [
   {
     href: '/generate-guid',
     icon: <Braces size={14} />,
-    label: 'generate guid',
+    label: 'generate guid'
   },
   {
     href: '/database-url',
     icon: <Database size={14} />,
-    label: 'generate db url',
+    label: 'generate db url'
   },
   { href: '/file-to-base64', icon: <Hash size={14} />, label: 'file to b64' },
   { href: '/text-to-base64', icon: <Hash size={14} />, label: 'text to b64' },
   { href: '/json-editor', icon: <FileJson size={14} />, label: 'json editor' },
-  { href: '/bcrypt', icon: <Hash size={14} />, label: 'bcrypt' },
+  { href: '/bcrypt', icon: <Hash size={14} />, label: 'bcrypt' }
 ]
 
 export default menuItems

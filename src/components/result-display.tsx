@@ -20,13 +20,13 @@ const resultDisplayVariants = cva(
     variants: {
       variant: {
         default: '',
-        mono: 'font-mono',
-      },
+        mono: 'font-mono'
+      }
     },
     defaultVariants: {
-      variant: 'default',
-    },
-  },
+      variant: 'default'
+    }
+  }
 )
 
 export default function ResultDisplay({
@@ -35,19 +35,19 @@ export default function ResultDisplay({
   variant,
   className,
   titleInside,
-  excerpt,
+  excerpt
 }: ResultDisplayProps) {
   const resultDisplayRef = useRef<HTMLDivElement>(null)
   const handleCopy = () => {
     if (!navigator.clipboard) {
       toast.error('clipboard not available', {
-        description: 'Your browser does not support clipboard access',
+        description: 'Your browser does not support clipboard access'
       })
       return
     }
     navigator.clipboard.writeText(content)
     toast.info('copied to clipboard', {
-      description: `The ${contentName} has been copied to your clipboard`,
+      description: `The ${contentName} has been copied to your clipboard`
     })
   }
 

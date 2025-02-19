@@ -9,7 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
@@ -22,7 +22,7 @@ import { useForm } from 'react-hook-form'
 export default function BCryptCompare() {
   const [result, setResult] = useState<boolean | null>(null)
   const form = useForm<BcryptCompareType>({
-    resolver: zodResolver(bcryptCompareSchema),
+    resolver: zodResolver(bcryptCompareSchema)
   })
 
   const onSubmit = async (data: BcryptCompareType) => {
@@ -31,7 +31,7 @@ export default function BCryptCompare() {
   }
 
   return (
-    <div className="space-y-4">
+    <>
       <Title>Compare Bcrypt Hash</Title>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -71,7 +71,7 @@ export default function BCryptCompare() {
         <div
           className={cn(
             'flex items-center gap-1 text-lg font-medium',
-            result ? 'text-green-500' : 'text-destructive',
+            result ? 'text-green-500' : 'text-destructive'
           )}
         >
           {result ? (
@@ -87,6 +87,6 @@ export default function BCryptCompare() {
           )}
         </div>
       )}
-    </div>
+    </>
   )
 }

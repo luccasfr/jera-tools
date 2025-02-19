@@ -9,7 +9,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { bcryptGenerateSchema, type BcryptGenerateType } from '@/types/bcrypt'
@@ -22,9 +22,9 @@ export default function BCryptGenerate() {
   const [hash, setHash] = useState<string | null>(null)
   const form = useForm<BcryptGenerateType>({
     defaultValues: {
-      saltRounds: 10,
+      saltRounds: 10
     },
-    resolver: zodResolver(bcryptGenerateSchema),
+    resolver: zodResolver(bcryptGenerateSchema)
   })
 
   const onSubmit = async (data: BcryptGenerateType) => {
@@ -33,7 +33,7 @@ export default function BCryptGenerate() {
   }
 
   return (
-    <div className="space-y-4">
+    <>
       <Title>Generate Bcrypt Hash</Title>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -79,6 +79,6 @@ export default function BCryptGenerate() {
           titleInside
         />
       )}
-    </div>
+    </>
   )
 }

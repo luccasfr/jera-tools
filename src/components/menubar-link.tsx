@@ -13,8 +13,8 @@ export default function MenubarLink({ children, href }: Props) {
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-1 rounded p-1 transition-colors md:text-sm
-            ${path === href && 'bg-foreground text-background'}`}
+      className={`inline-flex items-center gap-1 rounded p-1 transition-colors md:text-sm ${ path
+        === href && 'bg-foreground text-background' }`}
     >
       {children}
     </Link>

@@ -9,12 +9,15 @@ import { Toaster } from '@/components/ui/sonner'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'jera.tools',
-  description: 'tools for jerasoft developers',
+  title: {
+    template: '%s / jera.tools',
+    default: 'jera.tools'
+  },
+  description: 'tools for jerasoft developers'
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode
 }>) {
@@ -32,7 +35,9 @@ export default function RootLayout({
           </header>
           <main className="flex h-full pt-[80px]">
             <Menubar className="hidden md:flex" />
-            <div className="mb-12 flex-1 overflow-visible px-4">{children}</div>
+            <div className="mb-12 flex-1 space-y-4 overflow-visible px-4">
+              {children}
+            </div>
           </main>
           <Toaster />
         </ThemeProvider>

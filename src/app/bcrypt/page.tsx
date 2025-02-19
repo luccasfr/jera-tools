@@ -1,13 +1,18 @@
 import BCryptCompare from '@/components/bcrypt/compare'
 import BCryptGenerate from '@/components/bcrypt/generate'
 import { Separator } from '@/components/ui/separator'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'bcrypt'
+}
 
 export default function BCryptPage() {
   return (
-    <div className="space-y-4">
+    <>
       <BCryptGenerate />
       <Separator />
       <BCryptCompare />
-    </div>
+    </>
   )
 }

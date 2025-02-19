@@ -15,13 +15,13 @@ const menubarVariants = cva(
     variants: {
       variant: {
         default: '',
-        mobile: 'pb-20',
-      },
+        mobile: 'pb-20'
+      }
     },
     defaultVariants: {
-      variant: 'default',
-    },
-  },
+      variant: 'default'
+    }
+  }
 )
 
 type MenubarProps = {
@@ -38,14 +38,14 @@ export default function Menubar({ className }: MenubarProps) {
   }
 
   const filteredMenuItems = menuItems.filter((item) =>
-    item.label.toLowerCase().includes(searchDebounced.toLowerCase()),
+    item.label.toLowerCase().includes(searchDebounced.toLowerCase())
   )
 
   return (
     <div
       className={menubarVariants({
         className,
-        variant: isMobile ? 'mobile' : 'default',
+        variant: isMobile ? 'mobile' : 'default'
       })}
     >
       <div>
@@ -76,7 +76,7 @@ export default function Menubar({ className }: MenubarProps) {
         >
           {filteredMenuItems.length === 0 && (
             <div className="flex items-center justify-center gap-1 text-primary/60">
-              <p className="text-xs ">nothing found</p>
+              <p className="text-xs">nothing found</p>
             </div>
           )}
           {filteredMenuItems.map((item) => (

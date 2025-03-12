@@ -4,7 +4,7 @@ export const bcryptGenerateSchema = z.object({
   text: z.string({
     message: 'text is required'
   }),
-  saltRounds: z.number().optional()
+  saltRounds: z.number().max(15).optional()
 })
 export type BcryptGenerateType = z.infer<typeof bcryptGenerateSchema>
 

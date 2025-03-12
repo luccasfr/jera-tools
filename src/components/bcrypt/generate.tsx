@@ -17,9 +17,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Title from '@/components/title'
+import { LoaderCircle } from 'lucide-react'
 
 export default function BCryptGenerate() {
   const [hash, setHash] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
   const form = useForm<BcryptGenerateType>({
     defaultValues: {
       saltRounds: 10
@@ -28,8 +30,11 @@ export default function BCryptGenerate() {
   })
 
   const onSubmit = async (data: BcryptGenerateType) => {
+    setHash(null)
+    setLoading(true)
     const response = await generateBcryptHash(data)
     setHash(response)
+    setLoading(false)
   }
 
   return (
@@ -53,7 +58,7 @@ export default function BCryptGenerate() {
           <FormField
             control={form.control}
             name="saltRounds"
-            render={({ field }) => (
+            render={({ field: { onChange, ...rest } }) => (
               <FormItem>
                 <FormLabel>salt rounds</FormLabel>
                 <FormControl>
@@ -61,14 +66,22 @@ export default function BCryptGenerate() {
                     type="number"
                     min={0}
                     placeholder="salt rounds"
-                    {...field}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    {...rest}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">hash</Button>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="inline-flex items-center gap-1"
+          >
+            {loading && <LoaderCircle className="animate-spin" />}
+            hash
+          </Button>
         </form>
       </Form>
       {hash && (

@@ -11,20 +11,20 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { textToBase64Schema, TextToBase64Type } from '@/types/text-to-base64'
+import { base64ToTextSchema, Base64ToTextType } from '@/types/base64-to-text'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function TextToBase64() {
-  const [base64, setBase64] = useState<string | null>(null)
-  const form = useForm<TextToBase64Type>({
-    resolver: zodResolver(textToBase64Schema)
+export default function Base64ToText() {
+  const [text, setText] = useState<string | null>(null)
+  const form = useForm<Base64ToTextType>({
+    resolver: zodResolver(base64ToTextSchema)
   })
 
-  function onSubmit(data: TextToBase64Type) {
-    const base64 = Buffer.from(data.text).toString('base64')
-    setBase64(base64)
+  function onSubmit(data: Base64ToTextType) {
+    const text = Buffer.from(data.base64, 'base64').toString('utf-8')
+    setText(text)
   }
 
   return (
@@ -33,12 +33,12 @@ export default function TextToBase64() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="text"
+            name="base64"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>text</FormLabel>
                 <FormControl>
-                  <Input placeholder="text to be converted" {...field} />
+                  <Input placeholder="base64 text to be converted" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -47,9 +47,9 @@ export default function TextToBase64() {
           <Button type="submit">convert</Button>
         </form>
       </Form>
-      {base64 && (
+      {text && (
         <ResultDisplay
-          content={base64}
+          content={text}
           contentName="result"
           variant="mono"
           titleInside

@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { databaseURL } from '@/services/database-url'
+import { databaseURL } from '@/lib/database-url'
 import { databaseURLSchema, DatabaseURLType } from '@/types/database-url'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'

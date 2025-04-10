@@ -30,12 +30,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <header>
+          <header className="fixed left-0 right-0 top-0 z-50">
             <Navbar />
           </header>
-          <main className="flex h-full pt-[80px]">
-            <Menubar className="hidden md:flex" />
-            <div className="mb-12 flex-1 space-y-4 overflow-visible px-4">
+          <main className="flex h-screen">
+            <Menubar className="hidden pt-[80px] md:flex" />
+            <div className="flex-1 space-y-4 overflow-auto px-4 pb-4 pt-[80px]">
               {children}
             </div>
           </main>

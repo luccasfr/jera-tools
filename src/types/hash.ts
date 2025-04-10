@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const generateHashSchema = z.object({
-  hash: z.enum(['sha1', 'sha256', 'sha512'], {
+  hash: z.enum(['md5', 'sha1', 'sha256', 'sha512'], {
     required_error: 'you must select a hash'
   }),
   seed: z

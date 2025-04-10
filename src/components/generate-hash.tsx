@@ -18,9 +18,9 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import generateGuid from '@/services/generate-guid'
-import generate from '@/services/generate-hash'
-import { generateHashSchema, GenerateHashType } from '@/types/generate-hash'
+import generateGuid from '@/lib/guid'
+import generateHash from '@/lib/hash'
+import { generateHashSchema, GenerateHashType } from '@/types/hash'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Dices } from 'lucide-react'
 import { useState } from 'react'
@@ -33,15 +33,15 @@ export default function GenerateHash() {
   })
 
   const onSubmit = async (data: GenerateHashType) => {
-    const hash = await generate(data.hash, data.seed)
+    const hash = await generateHash(data.hash, data.seed)
     setHash(hash)
   }
 
   const handleRandomSeed = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    const guid = await generateGuid()
-    const sha1 = await generate('sha256', `${guid}${Date.now()}`)
-    form.setValue('seed', sha1)
+    const guid = generateGuid()
+    const sha256 = await generateHash('sha256', `${guid}${Date.now()}`)
+    form.setValue('seed', sha256)
   }
 
   return (

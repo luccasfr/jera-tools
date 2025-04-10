@@ -9,31 +9,30 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import urlEncode from '@/services/url-encode'
+import { urlDecode, urlEncode } from '@/lib/url'
+import { urlEncodeDecodeSchema, URLEncodeDecodeType } from '@/types/url'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
-const urlEncodeSchema = z.object({
-  content: z
-    .string({
-      required_error: 'content is required'
-    })
-    .min(1, 'content is required')
-})
+type URLEncodeDecodeProps = {
+  type: 'encode' | 'decode'
+}
 
-export type URLEncodeType = z.infer<typeof urlEncodeSchema>
-
-export default function URLEncode() {
+export default function URLEncodeDecode({ type }: URLEncodeDecodeProps) {
   const [result, setResult] = useState<string | null>(null)
-  const form = useForm<URLEncodeType>({
-    resolver: zodResolver(urlEncodeSchema)
+  const form = useForm<URLEncodeDecodeType>({
+    resolver: zodResolver(urlEncodeDecodeSchema)
   })
 
-  const onSubmit = async (data: URLEncodeType) => {
-    const encoded = await urlEncode(data.content)
-    setResult(encoded)
+  const onSubmit = async (data: URLEncodeDecodeType) => {
+    if (type === 'encode') {
+      const result = urlEncode(data.content)
+      setResult(result)
+      return
+    }
+    const result = urlDecode(data.content)
+    setResult(result)
   }
 
   return (
@@ -51,11 +50,16 @@ export default function URLEncode() {
               </FormItem>
             )}
           />
-          <Button type="submit">encode</Button>
+          <Button type="submit">
+            {type === 'encode' ? 'encode' : 'decode'}
+          </Button>
         </form>
       </Form>
       {result && (
-        <ResultDisplay contentName="encoded content" content={result} />
+        <ResultDisplay
+          contentName={`${type === 'encode' ? 'encoded' : 'decoded'} content`}
+          content={result}
+        />
       )}
     </>
   )

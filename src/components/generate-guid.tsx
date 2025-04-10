@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import generateGuid from '@/services/generate-guid'
+import generateGuid from '@/lib/guid'
 import { Copy, RefreshCcw } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'

@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/select'
 import generateGuid from '@/lib/guid'
 import generateHash from '@/lib/hash'
-import { generateHashSchema, GenerateHashType } from '@/types/hash'
+import { generateHashSchema, GenerateHashType, hashEnum } from '@/types/hash'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Dices } from 'lucide-react'
 import { useState } from 'react'
@@ -62,14 +62,16 @@ export default function GenerateHash() {
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="uppercase">
                       <SelectValue placeholder="select a hash" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="sha1">SHA1</SelectItem>
-                    <SelectItem value="sha256">SHA256</SelectItem>
-                    <SelectItem value="sha512">SHA512</SelectItem>
+                    {hashEnum.map((hash) => (
+                      <SelectItem value={hash} className="uppercase">
+                        {hash}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
